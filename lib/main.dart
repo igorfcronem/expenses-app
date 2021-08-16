@@ -26,10 +26,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  final _transactions = [
-    Transaction(id: 't1', title: 'teste1', value: 110, date: DateTime.now()),
-    Transaction(id: 't2', title: 'teste2', value: 210, date: DateTime.now())
-  ];
+  final List<Transaction> _transactions = [];
 
   _addTransaction(String title, double value) {
     final newTransaction = new Transaction(

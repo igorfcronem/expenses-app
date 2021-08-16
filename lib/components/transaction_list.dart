@@ -13,40 +13,57 @@ class TransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 300,
-      child: ListView.builder(
-          itemCount: transactions.length,
-          itemBuilder: (ctx, index) {
-            final e = transactions[index];
-            return Card(
-              child: ListTile(
-                leading: Icon(
-                  Icons.attach_money,
-                  size: 40,
+      child: transactions.isEmpty
+          ? Column(
+              children: [
+                Text(
+                  'Lista vazia',
+                  style: Theme.of(context).textTheme.headline4,
                 ),
-                title: Text(
-                  'R\$ ${e.value.toString()}',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
+                Container(
+                  child: Image.asset(
+                    'assets/images/empty.png',
+                    fit: BoxFit.cover,
                   ),
-                ),
-                subtitle: Text(
-                  '${e.title} \n${DateFormat('d/MM/y').format(e.date)}',
-                  style: TextStyle(
-                    fontSize: 14,
+                  height: 200,
+                )
+              ],
+              crossAxisAlignment: CrossAxisAlignment.center,
+            )
+          : ListView.builder(
+              itemCount: transactions.length,
+              itemBuilder: (ctx, index) {
+                final e = transactions[index];
+                return Card(
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.attach_money,
+                      size: 40,
+                    ),
+                    title: Text(
+                      'R\$ ${e.value.toString()}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
+                    ),
+                    subtitle: Text(
+                      '${e.title} \n${DateFormat('d/MM/y').format(e.date)}',
+                      style: TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                    isThreeLine: true,
+                    dense: true,
+                    trailing: IconButton(
+                      icon: Icon(Icons.remove_circle),
+                      onPressed: () {
+                        removeFromList(e.id);
+                      },
+                    ),
                   ),
-                ),
-                isThreeLine: true,
-                dense: true,
-                trailing: IconButton(
-                  icon: Icon(Icons.remove_circle),
-                  onPressed: () {
-                    removeFromList(e.id);
-                  },
-                ),
-              ),
-            );
-          }),
+                );
+              }),
     );
   }
 }
